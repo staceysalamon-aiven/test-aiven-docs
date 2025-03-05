@@ -21,7 +21,7 @@ jobs:
           ORGANIZATION_EXAMPLE_USAGE=$(cat temp-terraform-repo/examples/resources/aiven_organization/resource.tf)
 
           # Replace placeholders in the docs with the example usage
-          awk -v code="$ORGANIZATION_EXAMPLE_USAGE" '/<!-- INSERT_ORGANIZATION_UNIT_EXAMPLE_USAGE -->/ {print "```hcl"; print code; print "```"; next} 1' docs/tools/aiven-console/howto/create-orgs-and-units.md > docs/tools/aiven-console/howto/create-orgs-and-units.md.tmp
+          awk -v code="$ORGANIZATION_EXAMPLE_USAGE" '/<!-- INSERT_ORGANIZATION_UNIT_EXAMPLE_USAGE -->/ {print "<!-- INSERT_ORGANIZATION_UNIT_EXAMPLE_USAGE -->"; print "```hcl"; print code; print "```"; next} 1' docs/tools/aiven-console/howto/create-orgs-and-units.md > docs/tools/aiven-console/howto/create-orgs-and-units.md.tmp
           mv docs/tools/aiven-console/howto/create-orgs-and-units.md.tmp docs/tools/aiven-console/howto/create-orgs-and-units.md
 
       - name: Extract aiven_organization_project example usage

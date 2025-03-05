@@ -27,11 +27,7 @@ Console](https://console.aiven.io):
 
 ## Create an organizational unit in Terraform
 
-```hcl
-resource "aiven_organization" "main" {
-  name = "Example organization"
-}
-```
+<!-- INSERT_ORGANIZATION_UNIT_EXAMPLE_USAGE -->
 
 ## Create an organization
 
