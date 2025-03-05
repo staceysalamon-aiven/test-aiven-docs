@@ -3,11 +3,15 @@ title: Manage projects
 ---
 
 import ConsoleLabel from "@site/src/components/non-swizzled/ConsoleIcons"
-import {ConsoleIcon} from "@site/src/components/non-swizzled/ConsoleIcons"
+import {ConsoleIcon} from "@site/src/components/non-swizzled/ConsoleIcons";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 Learn how to manage your projects with the Aiven Console.
 
 ## Create a project
+
+<TabItem value="console" label="Console">
 
 1.  Click <ConsoleLabel name="Projects"/> and select **Create project**.
 1.  Enter a name for the project.
@@ -15,6 +19,14 @@ Learn how to manage your projects with the Aiven Console.
 1.  Select a [billing group](/docs/platform/howto/use-billing-groups).
     The costs from all services in this project are charged to the
     payment method for this billing group.
+
+</TabItem>
+<TabItem value="terraform" label="Terraform">
+
+<!-- INSERT_ORGANIZATION_PROJECT_EXAMPLE_USAGE -->
+
+</TabItem>
+</Tabs>
 
 ## Rename a project
 

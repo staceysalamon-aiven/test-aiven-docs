@@ -1,0 +1,43 @@
+name: Sync code samples from Aiven Provider for Terraform repostiroy
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # Runs every day at 2 AM UTC
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  sync-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Clone Terraform Provider repository
+        run: git clone --branch main --depth 1 https://github.com/aiven/terraform-provider-aiven.git temp-terraform-repo
+
+      - name: Extract aiven_organization example usage
+        run: |
+          # Pull the resource.tf file for creating organizations
+          ORGANIZATION_EXAMPLE_USAGE=$(cat temp-terraform-repo/examples/resources/aiven_organization/resource.tf)
+
+          # Replace placeholders in the docs with the example usage
+          awk -v code="$ORGANIZATION_EXAMPLE_USAGE" '/<!-- INSERT_ORGANIZATION_UNIT_EXAMPLE_USAGE -->/ {print "```hcl"; print code; print "```"; next} 1' docs/tools/aiven-console/howto/create-orgs-and-units.md > docs/tools/aiven-console/howto/create-orgs-and-units.md.tmp
+          mv docs/tools/aiven-console/howto/create-orgs-and-units.md.tmp docs/tools/aiven-console/howto/create-orgs-and-units.md
+
+      - name: Extract aiven_organization_project example usage
+        run: |
+          # Pull the resource.tf file for creating projects
+          PROJECT_EXAMPLE_USAGE=$(cat temp-terraform-repo/examples/resources/aiven_organization_project/resource.tf)
+
+          # Replace placeholders in the docs with the example usage
+          awk -v code="$PROJECT_EXAMPLE_USAGE" '/<!-- INSERT_ORGANIZATION_PROJECT_EXAMPLE_USAGE -->/ {print "```hcl"; print code; print "```"; next} 1' docs/platform/howto/manage-project.md > docs/platform/howto/manage-project.mdtmp
+          mv docs/platform/howto/manage-project.md.tmp docs/platform/howto/manage-project.md
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git pull origin main
+          git add docs/tools/aiven-console/howto/create-orgs-and-units.md docs/platform/howto/manage-project.md
+          git commit -m "Sync Terraform code samples" || echo "No changes to commit"
+          git push origin main || echo "No changes to push"

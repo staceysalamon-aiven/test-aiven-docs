@@ -10,7 +10,7 @@ automatically created for you. You can add organizational units in your organiza
 to group related projects and create custom
 [hierarchical organizations](/docs/platform/concepts/orgs-units-projects).
 
-## Create an organizational unit
+## Create an organizational unit in Aiven Console
 
 You can create an organizational unit within an organization to group
 your projects by, for example, your departments or environments. To
@@ -25,13 +25,9 @@ Console](https://console.aiven.io):
     organizational unit. You can search for projects by name.
 5.  Click **Create organizational unit**.
 
-Your organizational unit is shown in the list. Click the unit name to
-view and manage its projects.
+## Create an organizational unit in Terraform
 
-:::note
-Only one level of nesting is supported. This means that organizational
-units cannot be created within other units.
-:::
+<!-- INSERT_ORGANIZATION_UNIT_EXAMPLE_USAGE -->
 
 ## Create an organization
 
