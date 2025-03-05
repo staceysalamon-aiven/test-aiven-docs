@@ -30,7 +30,7 @@ jobs:
           PROJECT_EXAMPLE_USAGE=$(cat temp-terraform-repo/examples/resources/aiven_organization_project/resource.tf)
 
           # Replace placeholders in the docs with the example usage
-          awk -v code="$PROJECT_EXAMPLE_USAGE" '/<!-- INSERT_ORGANIZATION_PROJECT_EXAMPLE_USAGE -->/ {print "```hcl"; print code; print "```"; next} 1' docs/platform/howto/manage-project.md > docs/platform/howto/manage-project.mdtmp
+          awk -v code="$PROJECT_EXAMPLE_USAGE" '/<!-- INSERT_ORGANIZATION_PROJECT_EXAMPLE_USAGE -->/ {print "```hcl"; print code; print "```"; next} 1' docs/platform/howto/manage-project.md > docs/platform/howto/manage-project.md.tmp
           mv docs/platform/howto/manage-project.md.tmp docs/platform/howto/manage-project.md
 
       - name: Commit and push changes
