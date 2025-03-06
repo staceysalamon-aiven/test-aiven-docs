@@ -50,6 +50,11 @@ resource "aiven_organization" "main" {
 ```
 ```hcl
 resource "aiven_organization" "main" {
+  name = "Example organization"
+}
+```
+```hcl
+resource "aiven_organization" "main" {
   name = "Organization"
 }
 ```

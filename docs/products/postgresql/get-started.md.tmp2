@@ -69,18 +69,7 @@ resource "aiven_pg" "example_postgres" {
 
 1. Declare your variables in a file named ``variables.tf`` with the following:
 
-<!-- INSERT_POSTGRES_EXAMPLE_VARIABLES -->
-```hcl
-variable "aiven_token" {
-  description = "Aiven token"
-  type        = string
-}
-
-variable "project_name" {
-  description = "Aiven project name"
-  type        = string
-}
-```
+   <!-- INSERT_POSTGRES_EXAMPLE_VARIABLES -->
 
 1. Create a file named ``terraform.tfvars`` with your token and Aiven project name:
 
