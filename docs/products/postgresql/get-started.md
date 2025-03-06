@@ -37,6 +37,22 @@ Start using Aiven for PostgreSQL® by creating a service, connecting to it, and 
 
 <!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->
 ```hcl
+   terraform {
+     required_version = ">=0.13"
+     required_providers {
+       aiven = {
+         source  = "aiven/aiven"
+         version = ">=4.0.0, <5.0.0"
+       }
+     }
+   }
+   
+   # Initialize provider. No other config options than api_token
+   provider "aiven" {
+     api_token = var.aiven_token
+   }
+```
+```hcl
 terraform {
   required_version = ">=0.13"
   required_providers {
@@ -58,6 +74,15 @@ provider "aiven" {
 
 <!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->
 ```hcl
+   # European Postgres Service
+   resource "aiven_pg" "example_postgres" {
+     project      = var.project_name
+     service_name = "example-postgres-service"
+     cloud_name   = "aws-eu-west-2" 
+     plan         = "startup-4"
+   }
+```
+```hcl
 # European Postgres Service
 resource "aiven_pg" "example_postgres" {
   project      = var.project_name
@@ -70,6 +95,17 @@ resource "aiven_pg" "example_postgres" {
 1. Declare your variables in a file named ``variables.tf`` with the following:
 
 <!-- INSERT_POSTGRES_EXAMPLE_VARIABLES -->
+```hcl
+   variable "aiven_token" {
+     description = "Aiven token"
+     type        = string
+   }
+   
+   variable "project_name" {
+     description = "Aiven project name"
+     type        = string
+   }
+```
 ```hcl
 variable "aiven_token" {
   description = "Aiven token"
