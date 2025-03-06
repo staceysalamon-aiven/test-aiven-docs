@@ -30,6 +30,11 @@ Console](https://console.aiven.io):
 <!-- INSERT_ORGANIZATION_UNIT_EXAMPLE_USAGE -->
 ```hcl
 resource "aiven_organization" "main" {
+  name = "Example organization"
+}
+```
+```hcl
+resource "aiven_organization" "main" {
   name = "Organization"
 }
 ```
