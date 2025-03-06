@@ -36,29 +36,37 @@ Start using Aiven for PostgreSQL® by creating a service, connecting to it, and 
    create a file named ``provider.tf`` with the following:
 
 <!-- START_POSTGRES_EXAMPLE_PROVIDER -->
-```hcl
-terraform {
-  required_version = ">=0.13"
-  required_providers {
-    aiven = {
-      source  = "aiven/aiven"
-      version = ">=4.0.0, <5.0.0"
-    }
-  }
-}
-
-# Initialize provider. No other config options than api_token
-provider "aiven" {
-  api_token = var.aiven_token
-}
-```
+   ```hcl
+   terraform {
+     required_version = ">=0.13"
+     required_providers {
+       aiven = {
+         source  = "aiven/aiven"
+         version = ">=4.0.0, <5.0.0"
+       }
+     }
+   }
+   
+   # Initialize provider. No other config options than api_token
+   provider "aiven" {
+     api_token = var.aiven_token
+   }
+   ```
 <!-- END_POSTGRES_EXAMPLE_PROVIDER -->
 
 1. To configure the PostgreSQL service, create a file named ``service.tf``
    with the following:
 
 <!-- START_POSTGRES_EXAMPLE_SERVICE -->
-
+   ```hcl
+   # European Postgres Service
+   resource "aiven_pg" "example_postgres" {
+     project      = var.project_name
+     service_name = "example-postgres-service"
+     cloud_name   = "aws-eu-west-2" 
+     plan         = "startup-4"
+   }
+   ```
 <!-- END_POSTGRES_EXAMPLE_SERVICE -->
 
 
