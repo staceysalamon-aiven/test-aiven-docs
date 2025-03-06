@@ -40,9 +40,9 @@ jobs:
           SERVICE=$(cat temp-terraform-repo/examples/postgres/service.tf)
 
           # Replace placeholders in the docs with the example usage
-          awk -v code="$PROVIDER" '/<!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->"; print "```hcl"; print code; print "```"; next} 1' docs/products/postgresql/get-started.md > docs/products/postgresql/get-started.md.tmp
-          awk -v code="$SERVICE" '/<!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->"; print "```hcl"; print code; print "```"; next} 1' docs/products/postgresql/get-started.md > docs/products/postgresql/get-started.md.tmp
-          mv docs/products/postgresql/get-started.md.tmp docs/products/postgresql/get-started.md
+          awk -v code="$PROVIDER" '/<!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->"; print "```hcl"; print code; print "```"; next} 1' docs/products/postgresql/get-started.md > docs/products/postgresql/get-started.md.tmp1
+          awk -v code="$SERVICE" '/<!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->"; print "```hcl"; print code; print "```"; next} 1' docs/products/postgresql/get-started.md.tmp1 > docs/products/postgresql/get-started.md.tmp2
+          mv docs/products/postgresql/get-started.md.tmp2 docs/products/postgresql/get-started.md
 
       - name: Commit and push changes
         run: |
