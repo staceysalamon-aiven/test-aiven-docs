@@ -33,6 +33,17 @@ jobs:
           awk -v code="$PROJECT_EXAMPLE_USAGE" '/<!-- INSERT_ORGANIZATION_PROJECT_EXAMPLE_USAGE -->/ {print "<!-- INSERT_ORGANIZATION_PROJECT_EXAMPLE_USAGE -->"; print "```hcl"; print code; print "```"; next} 1' docs/platform/howto/manage-project.md > docs/platform/howto/manage-project.md.tmp
           mv docs/platform/howto/manage-project.md.tmp docs/platform/howto/manage-project.md
 
+      - name: Extract aiven_pg example files
+        run: |
+          # Pull the files for the example to create a PostgreSQL service
+          PROVIDER=$(cat temp-terraform-repo/examples/postgres/provider.tf)
+          SERVICE=$(cat temp-terraform-repo/examples/postgres/service.tf)
+
+          # Replace placeholders in the docs with the example usage
+          awk -v code="$PROVIDER" '/<!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->"; print "```hcl"; print code; print "```"; next} 1' docs/products/postgresql/get-started.md > docs/products/postgresql/get-started.md.tmp
+          awk -v code="$SERVICE" '/<!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->"; print "```hcl"; print code; print "```"; next} 1' docs/products/postgresql/get-started.md > docs/products/postgresql/get-started.md.tmp
+          mv docs/products/postgresql/get-started.md.tmp docs/products/postgresql/get-started.md
+
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
