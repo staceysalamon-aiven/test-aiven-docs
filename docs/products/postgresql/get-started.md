@@ -57,9 +57,9 @@ provider "aiven" {
 1. To configure the PostgreSQL service, create a file named ``service.tf``
    with the following:
 
-<!-- _POSTGRES_EXAMPLE_SERVICE -->
+<!-- START_POSTGRES_EXAMPLE_SERVICE -->
 
-
+<!-- END_POSTGRES_EXAMPLE_SERVICE -->
 
 
 1. Declare your variables in a file named ``variables.tf`` with the following:
