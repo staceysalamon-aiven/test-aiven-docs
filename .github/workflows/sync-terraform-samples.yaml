@@ -46,9 +46,9 @@ jobs:
           VARIABLES_INDENTED=$(echo "$VARIABLES" | sed 's/^/   /')
 
           # Replace placeholders in the docs with the example usage
-          awk -v code="$PROVIDER_INDENTED" '/<!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->"; print "```hcl"; print code; print "```"; next} 1' docs/products/postgresql/get-started.md > docs/products/postgresql/get-started.md.tmp1
-          awk -v code="$SERVICE_INDENTED" '/<!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->"; print "```hcl"; print code; print "```"; next} 1' docs/products/postgresql/get-started.md.tmp1 > docs/products/postgresql/get-started.md.tmp2
-          awk -v code="$VARIABLES_INDENTED" '/<!-- INSERT_POSTGRES_EXAMPLE_VARIABLES -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_VARIABLES -->"; print "```hcl"; print code; print "```"; next} 1' docs/products/postgresql/get-started.md.tmp2 > docs/products/postgresql/get-started.md.tmp3
+          awk -v code="$PROVIDER_INDENTED" '/<!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->"; print "   ```hcl"; print code; print "   ```"; next} 1' docs/products/postgresql/get-started.md > docs/products/postgresql/get-started.md.tmp1
+          awk -v code="$SERVICE_INDENTED" '/<!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->"; print "   ```hcl"; print code; print "   ```"; next} 1' docs/products/postgresql/get-started.md.tmp1 > docs/products/postgresql/get-started.md.tmp2
+          awk -v code="$VARIABLES_INDENTED" '/<!-- INSERT_POSTGRES_EXAMPLE_VARIABLES -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_VARIABLES -->"; print "   ```hcl"; print code; print "   ```"; next} 1' docs/products/postgresql/get-started.md.tmp2 > docs/products/postgresql/get-started.md.tmp3
 
           mv docs/products/postgresql/get-started.md.tmp3 docs/products/postgresql/get-started.md
 
