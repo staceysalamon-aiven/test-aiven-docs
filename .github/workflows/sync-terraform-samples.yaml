@@ -53,7 +53,7 @@ jobs:
           awk -v code="$SERVICE_INDENTED" '/<!-- START_POSTGRES_EXAMPLE_SERVICE -->/ {print $0; in_block=1; next} /<!-- END_POSTGRES_EXAMPLE_SERVICE -->/ {if (in_block) {print "   ```hcl"; print code; print "   ```"; in_block=0} print $0; next} in_block {next} {print $0}' docs/products/postgresql/get-started.md.tmp1 > docs/products/postgresql/get-started.md.tmp2
 
           # Check and replace the variables block if necessary
-          awk -v code="$VARIABLES_INDENTED" '/<!-- START_POSTGRES_EXAMPLE_VARIABLES -->/ {print $0; in_block=1; next} /<!-- END_POSTGRES_EXAMPLE_VARIABLES -->/ {if (in_block) {print "```hcl"; print code; print "```"; in_block=0} print $0; next} in_block {next} {print $0}' docs/products/postgresql/get-started.md.tmp2 > docs/products/postgresql/get-started.md.tmp3
+          awk -v code="$VARIABLES_INDENTED" '/<!-- START_POSTGRES_EXAMPLE_VARIABLES -->/ {print $0; in_block=1; next} /<!-- END_POSTGRES_EXAMPLE_VARIABLES -->/ {if (in_block) {print "   ```hcl"; print code; print "   ```"; in_block=0} print $0; next} in_block {next} {print $0}' docs/products/postgresql/get-started.md.tmp2 > docs/products/postgresql/get-started.md.tmp3
 
           # Final move to replace the original file with the updated one
           mv docs/products/postgresql/get-started.md.tmp3 docs/products/postgresql/get-started.md
