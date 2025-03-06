@@ -8,7 +8,9 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import ConsoleLabel from "@site/src/components/non-swizzled/ConsoleIcons"
 import CreateService from "@site/static/includes/create-service-console.md"
+import PlanApplyTF from "@site/static/includes/terraform-plan-and-apply.md"
 import RelatedPages from "@site/src/components/non-swizzled/RelatedPages";
+
 
 Start using Aiven for PostgreSQL® by creating a service, connecting to it, and loading sample data.
 
@@ -30,65 +32,25 @@ Start using Aiven for PostgreSQL® by creating a service, connecting to it, and 
 <TabItem value="2" label="Terraform">
 
 1. [Create a token](/docs/platform/howto/create_authentication_token).
-1. Create the following Terraform files:
+1. To define the Terraform version and configure the Aiven Terraform Provider,
+   create a file named ``provider.tf`` with the following:
 
-   - ``provider.tf``, where you specify the version in the ``required_providers`` block
+   <!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->
 
-      ```hcl
-        terraform {
-          required_providers {
-            aiven = {
-              source  = "aiven/aiven"
-              version = ">=4.0.0, < 5.0.0"
-            }
-          }
-        }
+1. To configure the PostgreSQL service, create a file named ``service.tf``
+   with the following:
 
-        provider "aiven" {
-          api_token = var.aiven_api_token
-        }
-      ```
+   <!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->
 
-   - ``postgresql.tf``, where you include the ``aiven_pg`` resource
+1. Declare your variables in a file named ``variables.tf`` with the following:
 
-      ```hcl
-        resource "aiven_pg" "pg" {
-          project                = data.aiven_project.my_project.project
-          service_name           = "postgresql"
-          cloud_name             = "google-europe-west3"
-          plan                   = "startup-4"
-        }
+   <!-- INSERT_POSTGRES_EXAMPLE_VARIABLES -->
 
-        output "postgresql_service_uri" {
-          value     = aiven_pg.postgresql.service_uri
-          sensitive = true
-        }
-      ```
+1. Create a file named ``terraform.tfvars`` with your token and Aiven project name:
 
-   - ``variables.tf``, where you declare the token and project name variables
+   <!-- INSERT_POSTGRES_EXAMPLE_TFVARS -->
 
-      ```hcl
-      variable "aiven_api_token" {
-        description = "Aiven token"
-        type        = string
-      }
-
-      variable "project_name" {
-        description = "Aiven console project name"
-        type        = string
-      }
-      ```
-
-   - ``terraform.tfvars``, where you add the Aiven token and project name
-
-      ```hcl
-        aiven_api_token = "AIVEN_TOKEN"
-        project_name    = "AIVEN_PROJECT_NAME"
-        admin_username  = "YOUR_SERVICE_USERNAME"
-        admin_password  = "YOUR_SERVICE_PASSWORD"
-      ```
-
-1. Run ``terraform init`` > ``terraform plan`` > ``terraform apply --auto-approve``.
+<PlanApplyTF/>
 
 </TabItem>
 </Tabs>
