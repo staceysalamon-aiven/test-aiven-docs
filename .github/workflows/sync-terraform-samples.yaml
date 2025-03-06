@@ -46,10 +46,16 @@ jobs:
           VARIABLES_INDENTED=$(echo "$VARIABLES" | sed 's/^/   /')
 
           # Replace placeholders in the docs with the example usage
-          awk -v code="$PROVIDER_INDENTED" '/<!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->"; print "   ```hcl"; print code; print "   ```"; next} 1' docs/products/postgresql/get-started.md > docs/products/postgresql/get-started.md.tmp1
-          awk -v code="$SERVICE_INDENTED" '/<!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->"; print "   ```hcl"; print code; print "   ```"; next} 1' docs/products/postgresql/get-started.md.tmp1 > docs/products/postgresql/get-started.md.tmp2
-          awk -v code="$VARIABLES_INDENTED" '/<!-- INSERT_POSTGRES_EXAMPLE_VARIABLES -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_VARIABLES -->"; print "   ```hcl"; print code; print "   ```"; next} 1' docs/products/postgresql/get-started.md.tmp2 > docs/products/postgresql/get-started.md.tmp3
+          # Check and replace the provider block if necessary
+          awk -v code="$PROVIDER" '/<!-- START_POSTGRES_EXAMPLE_PROVIDER -->/ {print $0; in_block=1; next} /<!-- END_POSTGRES_EXAMPLE_PROVIDER -->/ {if (in_block) {print "```hcl"; print code; print "```"; in_block=0} print $0; next} in_block {next} {print $0}' docs/products/postgresql/get-started.md > docs/products/postgresql/get-started.md.tmp1
 
+          # Check and replace the service block if necessary
+          awk -v code="$SERVICE" '/<!-- START_POSTGRES_EXAMPLE_SERVICE -->/ {print $0; in_block=1; next} /<!-- END_POSTGRES_EXAMPLE_SERVICE -->/ {if (in_block) {print "```hcl"; print code; print "```"; in_block=0} print $0; next} in_block {next} {print $0}' docs/products/postgresql/get-started.md.tmp1 > docs/products/postgresql/get-started.md.tmp2
+
+          # Check and replace the variables block if necessary
+          awk -v code="$VARIABLES" '/<!-- START_POSTGRES_EXAMPLE_VARIABLES -->/ {print $0; in_block=1; next} /<!-- END_POSTGRES_EXAMPLE_VARIABLES -->/ {if (in_block) {print "```hcl"; print code; print "```"; in_block=0} print $0; next} in_block {next} {print $0}' docs/products/postgresql/get-started.md.tmp2 > docs/products/postgresql/get-started.md.tmp3
+
+          # Final move to replace the original file with the updated one
           mv docs/products/postgresql/get-started.md.tmp3 docs/products/postgresql/get-started.md
 
       - name: Commit and push changes
