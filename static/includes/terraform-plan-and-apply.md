@@ -1,4 +1,6 @@
-1. To initialize Terraform, run:
+To preview and deploy your Terraform files:
+
+1. Initialize Terraform by running:
 
    ```sh
    $ terraform init
