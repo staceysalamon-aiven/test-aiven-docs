@@ -1,4 +1,4 @@
-name: Sync code samples from Aiven Provider for Terraform repostiroy
+name: Sync code samples from Aiven Provider for Terraform repository
 
 on:
   schedule:
@@ -38,17 +38,20 @@ jobs:
           # Pull the files for the example to create a PostgreSQL service
           PROVIDER=$(cat temp-terraform-repo/examples/postgres/provider.tf)
           SERVICE=$(cat temp-terraform-repo/examples/postgres/service.tf)
+          VARIABLES=$(cat temp-terraform-repo/examples/postgres/variables.tf)
 
           # Replace placeholders in the docs with the example usage
           awk -v code="$PROVIDER" '/<!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_PROVIDER -->"; print "```hcl"; print code; print "```"; next} 1' docs/products/postgresql/get-started.md > docs/products/postgresql/get-started.md.tmp1
           awk -v code="$SERVICE" '/<!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_SERVICE -->"; print "```hcl"; print code; print "```"; next} 1' docs/products/postgresql/get-started.md.tmp1 > docs/products/postgresql/get-started.md.tmp2
-          mv docs/products/postgresql/get-started.md.tmp2 docs/products/postgresql/get-started.md
+          awk -v code="$VARIABLES" '/<!-- INSERT_POSTGRES_EXAMPLE_VARIABLES -->/ {print "<!-- INSERT_POSTGRES_EXAMPLE_VARIABLES -->"; print "```hcl"; print code; print "```"; next} 1' docs/products/postgresql/get-started.md.tmp2 > docs/products/postgresql/get-started.md.tmp3
+
+          mv docs/products/postgresql/get-started.md.tmp3 docs/products/postgresql/get-started.md
 
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git pull origin main
-          git add docs/tools/aiven-console/howto/create-orgs-and-units.md docs/platform/howto/manage-project.md
+          git add .
           git commit -m "Sync Terraform code samples" || echo "No changes to commit"
           git push origin main || echo "No changes to push"
