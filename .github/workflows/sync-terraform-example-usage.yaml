@@ -1,0 +1,38 @@
+name: Sync Terraform example usage
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync-standard-examples:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        example:
+          - { name: "aiven_organization", file: "aiven_organization/resource.tf", placeholder: "ORGANIZATION_UNIT_EXAMPLE_USAGE", doc: "docs/tools/aiven-console/howto/create-orgs-and-units.md" }
+          - { name: "aiven_organization_project", file: "aiven_organization_project/resource.tf", placeholder: "ORGANIZATION_PROJECT_EXAMPLE_USAGE", doc: "docs/platform/howto/manage-project.md" }
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Clone Terraform Provider repository
+        run: git clone --branch main --depth 1 https://github.com/aiven/terraform-provider-aiven.git temp-terraform-repo
+
+      - name: Extract examples and update docs
+        run: |
+          EXAMPLE_USAGE=$(cat temp-terraform-repo/examples/resources/${{ matrix.example.file }})
+
+          awk -v code="$EXAMPLE_USAGE" '/<!-- START_${{ matrix.example.placeholder }} -->/ {print $0; in_block=1; next} /<!-- END_${{ matrix.example.placeholder }} -->/ {if (in_block) {print "```hcl"; print code; print "```"; in_block=0} print $0; next} in_block {next} {print $0}' ${{ matrix.example.doc }} > ${{ matrix.example.doc }}.tmp
+          mv ${{ matrix.example.doc }}.tmp ${{ matrix.example.doc }}
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git pull origin main
+          git add .
+          git commit -m "Sync standard Terraform examples" || echo "No changes to commit"
+          git push origin main || echo "No changes to push"

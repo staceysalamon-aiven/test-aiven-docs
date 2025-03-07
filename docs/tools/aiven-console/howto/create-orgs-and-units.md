@@ -39,7 +39,6 @@ your projects by, for example, your departments or environments.
 Further details are available in the
 [Aiven Terraform Provider documentation](https://registry.terraform.io/providers/aiven/aiven/latest/docs/resources/organization_project).
 
-
 </TabItem>
 </Tabs>
 
@@ -47,7 +46,7 @@ Further details are available in the
 
 :::important
 You can only verify a domain in one organization, meaning you can't set up SAML
-authentication, user provisiong with SCIM, or managed users for the same domain
+authentication, user provisioning with SCIM, or managed users for the same domain
 in another organization. Additionally, support and commitment contracts cannot
 be shared across organizations.
 
@@ -59,8 +58,8 @@ for the new organization such as:
 - roles and permissions
 :::
 
-To create an organization in the [Aiven
-Console](https://console.aiven.io):
+<Tabs groupId="group1">
+<TabItem value="console" label="Console" default>
 
 1.  Click the user information icon in the top right and select
     **Organizations**.
@@ -70,30 +69,15 @@ Console](https://console.aiven.io):
     organization. You can search for projects by name.
 1.  Click **Create organization**.
 
+</TabItem>
+<TabItem value="2" label="Terraform example usage">
 
-## Create an organization
+<!-- START_ORGANIZATION_EXAMPLE_USAGE -->
 
-:::important
-You can only verify a domain in one organization, meaning you can't set up SAML
-authentication, user provisiong with SCIM, or managed users for the same domain
-in another organization. Additionally, support and commitment contracts cannot
-be shared across organizations.
+<!-- END_ORGANIZATION_EXAMPLE_USAGE -->
 
-When you create another organization you also have to manually configure all settings
-for the new organization such as:
-- billing groups
-- authentication policies
-- users and groups
-- roles and permissions
-:::
+Further details are available in the
+[Aiven Terraform Provider documentation](https://registry.terraform.io/providers/aiven/aiven/latest/docs/resources/organization_project).
 
-To create an organization in the [Aiven
-Console](https://console.aiven.io):
-
-1.  Click the user information icon in the top right and select
-    **Organizations**.
-1.  Click **Create organization**.
-1.  Enter a name for the organization.
-1.  Optional: Select any projects to assign to this
-    organization. You can search for projects by name.
-1.  Click **Create organization**.
+</TabItem>
+</Tabs>

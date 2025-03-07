@@ -11,19 +11,28 @@ import CreateService from "@site/static/includes/create-service-console.md"
 import PlanApplyTF from "@site/static/includes/terraform-plan-and-apply.md"
 import RelatedPages from "@site/src/components/non-swizzled/RelatedPages";
 
-
 Start using Aiven for PostgreSQL® by creating a service, connecting to it, and loading sample data.
 
 ## Prerequisites
 
+<Tabs groupId="group1">
+<TabItem value="1" label="Console" default>
+
 - Access to the [Aiven Console](https://console.aiven.io)
 - [psql](https://www.postgresql.org/download/) command line tool installed
-- [Terraform installed](https://developer.hashicorp.com/terraform/install) if you prefer
-  to get started using code
+
+</TabItem>
+<TabItem value="2" label="Terraform">
+- [Terraform installed](https://developer.hashicorp.com/terraform/install)
+- Aiven Terraform Provider installed
+- Create a token
+
+</TabItem>
+</Tabs>
 
 ## Create a service
 
-<Tabs groupId="group1">
+<Tabs groupId="group2">
 <TabItem value="1" label="Console" default>
 
 <CreateService serviceType="PostgreSQL®"/>
@@ -31,7 +40,6 @@ Start using Aiven for PostgreSQL® by creating a service, connecting to it, and 
 </TabItem>
 <TabItem value="2" label="Terraform">
 
-1. [Create a token](/docs/platform/howto/create_authentication_token).
 1. To define the Terraform version and configure the Aiven Terraform Provider,
    create a file named ``provider.tf`` with the following:
 
