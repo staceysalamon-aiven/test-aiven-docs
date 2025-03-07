@@ -23,6 +23,12 @@ jobs:
               placeholder: 'ORGANIZATIONAL_UNIT_EXAMPLE_USAGE',
               doc: 'docs/tools/aiven-console/howto/create-orgs-and-units.md',
             }
+          - {
+              name: 'aiven_organization_project',
+              file: 'aiven_organization_project/resource.tf',
+              placeholder: 'ORGANIZATION_PROJECT_EXAMPLE_USAGE',
+              doc: 'docs/platform/howto/manage-project.md',
+            }
 
     steps:
       - name: Checkout repository

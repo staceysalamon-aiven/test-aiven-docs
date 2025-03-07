@@ -26,6 +26,9 @@ Learn how to manage your projects with the Aiven Console.
 Create a project using Terraform:
 
 <!-- START_ORGANIZATION_PROJECT_EXAMPLE_USAGE -->
+
+<!-- END_ORGANIZATION_PROJECT_EXAMPLE_USAGE -->
+
 </TabItem>
 </Tabs>
 
