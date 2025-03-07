@@ -27,7 +27,7 @@ Learn how to manage your projects with the Aiven Console.
 <!-- START_ORGANIZATION_PROJECT_EXAMPLE_USAGE -->
 ```hcl
 resource "aiven_organization_project" "foo" {
-  project_id = "example-project"
+  project_id = "example-project-changeat1500"
   organization_id = aiven_organization.foo.id
   billing_group_id = aiven_billing_group.foo.id
 }
