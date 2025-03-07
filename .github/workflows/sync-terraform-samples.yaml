@@ -1,5 +1,10 @@
 name: Sync code samples from Aiven Provider for Terraform repository
 
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
 jobs:
   sync-docs:
     runs-on: ubuntu-latest
