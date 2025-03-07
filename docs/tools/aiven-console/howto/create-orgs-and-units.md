@@ -36,7 +36,7 @@ your projects by, for example, your departments or environments.
 ```hcl
 resource "aiven_organizational_unit" "example_unit" {
   name      = "Example organizational unit"
-  parent_id = aiven_organization.main.id
+  parent_id = aiven_organization.main.org_id
 }
 ```
 <!-- END_ORGANIZATIONAL_UNIT_EXAMPLE_USAGE -->
