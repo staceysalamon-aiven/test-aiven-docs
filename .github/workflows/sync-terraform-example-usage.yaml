@@ -54,9 +54,11 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           commit-message: 'Sync Terraform example usage in docs'
+          committer: GitHub <noreply@github.com>
+          author: GitHub <noreply@github.com>
           title: 'Sync Terraform code samples'
           body: 'Automatically syncs the latest examples from the Terraform example usage.'
           base: main
           branch: sync-tf-code-samples
           delete-branch: true
-          labels: terraform, automated-pr
+          labels: terraform, automated-pr, review/TW
