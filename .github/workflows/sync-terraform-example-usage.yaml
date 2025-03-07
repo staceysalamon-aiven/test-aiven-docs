@@ -49,15 +49,15 @@ jobs:
         run: |
           BRANCH_NAME="sync-tf-code-samples-$(date +'%Y-%m-%d-%H-%M-%S')"
           git checkout -b $BRANCH_NAME
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
 
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git pull origin main
           git add .
           git commit -m "Sync Terraform code samples" || echo "No changes to commit"
-          git push --set-upstream origin $BRANCH_NAME
+          git push --set-upstream origin ${{ env.branch_name }}
 
       - name: Open pull request
         uses: peter-evans/create-pull-request@v3
@@ -65,4 +65,4 @@ jobs:
           title: 'Sync Terraform code samples'
           body: 'This PR automatically syncs the latest Terraform code samples with the documentation.'
           base: main
-          head: $BRANCH_NAME
+          head: ${{ env.branch_name }} # Using the branch name stored in environment variables
