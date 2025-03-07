@@ -44,11 +44,24 @@ jobs:
           awk -v code="$EXAMPLE_USAGE" '/<!-- START_${{ matrix.example.placeholder }} -->/ {print $0; in_block=1; next} /<!-- END_${{ matrix.example.placeholder }} -->/ {if (in_block) {print "```hcl"; print code; print "```"; in_block=0} print $0; next} in_block {next} {print $0}' ${{ matrix.example.doc }} > ${{ matrix.example.doc }}.tmp
           mv ${{ matrix.example.doc }}.tmp ${{ matrix.example.doc }}
 
+      - name: Create a new branch for changes
+        run: |
+          BRANCH_NAME="sync-tf-code-samples-$(date +'%Y-%m-%d-%H-%M-%S')"
+          git checkout -b $BRANCH_NAME
+
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git pull origin main
           git add .
-          git commit -m "Sync standard Terraform examples" || echo "No changes to commit"
-          git push origin main || echo "No changes to push"
+          git commit -m "Sync Terraform code samples" || echo "No changes to commit"
+          git push origin $BRANCH_NAME
+
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: 'Sync Terraform code samples'
+          body: 'This PR automatically syncs the latest Terraform code samples with the documentation.'
+          base: main
+          head: ${{ steps.commit-and-push.outputs.branch }} # The new branch with changes
