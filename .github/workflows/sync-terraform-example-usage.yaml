@@ -45,7 +45,6 @@ jobs:
           mv ${{ matrix.example.doc }}.tmp ${{ matrix.example.doc }}
 
       - name: Create Pull Request
-        needs: sync-standard-examples # Wait for the first job to finish
         uses: peter-evans/create-pull-request@v6
         with:
           commit-message: 'Sync Terraform example usage in docs'
