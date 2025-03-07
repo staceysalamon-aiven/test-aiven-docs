@@ -51,6 +51,6 @@ jobs:
           title: 'Sync Terraform code samples'
           body: 'Automatically syncs the latest examples from the Terraform example usage.'
           base: main
-          branch: sync-tf-code-samples-${{ github.run_id }}
+          branch: sync-tf-code-samples
           delete-branch: true # Deletes branch after PR is merged
           labels: terraform, automated-pr
