@@ -30,19 +30,13 @@ jobs:
               doc: 'docs/platform/howto/manage-project.md',
             }
 
+  create-pull-request:
+    needs: sync-standard-examples # Wait for the first job to finish
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Clone Terraform Provider repository
-        run: git clone --branch main --depth 1 https://github.com/staceysalamon-aiven/test-terraform-provider-aiven.git temp-terraform-repo
-
-      - name: Extract examples and update docs
-        run: |
-          EXAMPLE_USAGE=$(cat temp-terraform-repo/examples/resources/${{ matrix.example.file }})
-
-          awk -v code="$EXAMPLE_USAGE" '/<!-- START_${{ matrix.example.placeholder }} -->/ {print $0; in_block=1; next} /<!-- END_${{ matrix.example.placeholder }} -->/ {if (in_block) {print "```hcl"; print code; print "```"; in_block=0} print $0; next} in_block {next} {print $0}' ${{ matrix.example.doc }} > ${{ matrix.example.doc }}.tmp
-          mv ${{ matrix.example.doc }}.tmp ${{ matrix.example.doc }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
@@ -52,5 +46,5 @@ jobs:
           body: 'Automatically syncs the latest examples from the Terraform example usage.'
           base: main
           branch: sync-tf-code-samples
-          delete-branch: true # Deletes branch after PR is merged
+          delete-branch: true
           labels: terraform, automated-pr
