@@ -45,6 +45,7 @@ jobs:
           mv ${{ matrix.example.doc }}.tmp ${{ matrix.example.doc }}
 
       - name: Create a new branch for changes
+        id: create-branch
         run: |
           BRANCH_NAME="sync-tf-code-samples-$(date +'%Y-%m-%d-%H-%M-%S')"
           git checkout -b $BRANCH_NAME
@@ -64,4 +65,4 @@ jobs:
           title: 'Sync Terraform code samples'
           body: 'This PR automatically syncs the latest Terraform code samples with the documentation.'
           base: main
-          head: ${{ steps.commit-and-push.outputs.branch }} # The new branch with changes
+          head: $BRANCH_NAME
