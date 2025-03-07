@@ -33,7 +33,12 @@ your projects by, for example, your departments or environments.
 <TabItem value="2" label="Terraform example usage">
 
 <!-- START_ORGANIZATIONAL_UNIT_EXAMPLE_USAGE -->
-
+```hcl
+resource "aiven_organizational_unit" "example_unit" {
+  name      = "Example organizational unit"
+  parent_id = aiven_organization.main.id
+}
+```
 <!-- END_ORGANIZATIONAL_UNIT_EXAMPLE_USAGE -->
 
 Further details are available in the
