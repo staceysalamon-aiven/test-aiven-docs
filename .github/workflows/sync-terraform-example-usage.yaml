@@ -33,15 +33,13 @@ jobs:
   create-pull-request:
     needs: sync-standard-examples # Wait for the first job to finish
     runs-on: ubuntu-latest
-
-    steps:
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          commit-message: 'Sync Terraform example usage in docs'
-          title: 'Sync Terraform code samples'
-          body: 'Automatically syncs the latest examples from the Terraform example usage.'
-          base: main
-          branch: sync-tf-code-samples
-          delete-branch: true
-          labels: terraform, automated-pr
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v6
+      with:
+        commit-message: 'Sync Terraform example usage in docs'
+        title: 'Sync Terraform code samples'
+        body: 'Automatically syncs the latest examples from the Terraform example usage.'
+        base: main
+        branch: sync-tf-code-samples
+        delete-branch: true
+        labels: terraform, automated-pr
