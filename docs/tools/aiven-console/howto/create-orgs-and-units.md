@@ -42,7 +42,7 @@ resource "aiven_organizational_unit" "example_unit" {
 <!-- END_ORGANIZATIONAL_UNIT_EXAMPLE_USAGE -->
 
 Further details are available in the
-[Aiven Terraform Provider documentation](https://registry.terraform.io/providers/aiven/aiven/latest/docs/resources/organization_project).
+[Aiven Terraform Provider documentation](https://registry.terraform.io/providers/aiven/aiven/latest/docs/resources/organizational_unit).
 
 </TabItem>
 </Tabs>
@@ -86,7 +86,7 @@ resource "aiven_organization" "main" {
 <!-- END_ORGANIZATION_EXAMPLE_USAGE -->
 
 Further details are available in the
-[Aiven Terraform Provider documentation](https://registry.terraform.io/providers/aiven/aiven/latest/docs/resources/organization_project).
+[Aiven Terraform Provider documentation](https://registry.terraform.io/providers/aiven/aiven/latest/docs/resources/organization).
 
 </TabItem>
 </Tabs>

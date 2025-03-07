@@ -11,6 +11,7 @@ Learn how to manage your projects with the Aiven Console.
 
 ## Create a project
 
+<Tabs groupId="group1">
 <TabItem value="console" label="Console">
 
 1.  Click <ConsoleLabel name="Projects"/> and select **Create project**.
@@ -21,9 +22,7 @@ Learn how to manage your projects with the Aiven Console.
     payment method for this billing group.
 
 </TabItem>
-<TabItem value="terraform" label="Terraform">
-
-Create a project using Terraform:
+<TabItem value="terraform" label="Terraform example usage">
 
 <!-- START_ORGANIZATION_PROJECT_EXAMPLE_USAGE -->
 ```hcl
@@ -34,6 +33,9 @@ resource "aiven_organization_project" "foo" {
 }
 ```
 <!-- END_ORGANIZATION_PROJECT_EXAMPLE_USAGE -->
+
+Further details are available in the
+[Aiven Terraform Provider documentation](https://registry.terraform.io/providers/aiven/aiven/latest/docs/resources/organization_project).
 
 </TabItem>
 </Tabs>
