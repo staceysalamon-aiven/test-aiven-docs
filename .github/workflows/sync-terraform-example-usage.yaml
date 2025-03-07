@@ -35,7 +35,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Clone Terraform Provider repository
-        run: git clone --branch main --depth 1 https://github.com/staceysalamon-aiven/test-terraform-provider-aiven.git temp-terraform-repo
+        run: git clone --branch main --depth 1 --recurse-submodules https://github.com/staceysalamon-aiven/test-terraform-provider-aiven.git temp-terraform-repo
 
       - name: Extract examples and update docs
         run: |
