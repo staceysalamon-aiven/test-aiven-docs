@@ -45,6 +45,7 @@ jobs:
           mv ${{ matrix.example.doc }}.tmp ${{ matrix.example.doc }}
 
   create-pull-request:
+    needs: sync-standard-examples # Wait for the first job to finish
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
