@@ -44,25 +44,13 @@ jobs:
           awk -v code="$EXAMPLE_USAGE" '/<!-- START_${{ matrix.example.placeholder }} -->/ {print $0; in_block=1; next} /<!-- END_${{ matrix.example.placeholder }} -->/ {if (in_block) {print "```hcl"; print code; print "```"; in_block=0} print $0; next} in_block {next} {print $0}' ${{ matrix.example.doc }} > ${{ matrix.example.doc }}.tmp
           mv ${{ matrix.example.doc }}.tmp ${{ matrix.example.doc }}
 
-      - name: Create a new branch for changes
-        id: create-branch
-        run: |
-          BRANCH_NAME="sync-tf-code-samples-$(date +'%Y-%m-%d-%H-%M-%S')"
-          git checkout -b $BRANCH_NAME
-          echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
-
-      - name: Commit and push changes
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Sync Terraform code samples" || echo "No changes to commit"
-          git push --set-upstream origin ${{ env.branch_name }}
-
-      - name: Open pull request
-        uses: peter-evans/create-pull-request@v3
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
         with:
+          commit-message: 'Sync Terraform example usage in docs'
           title: 'Sync Terraform code samples'
-          body: 'This PR automatically syncs the latest Terraform code samples with the documentation.'
+          body: 'Automatically syncs the latest examples from the Terraform example usage.'
           base: main
-          head: ${{ env.branch_name }} # Using the branch name stored in environment variables
+          branch: sync-tf-code-samples-${{ github.run_id }}
+          delete-branch: true # Deletes branch after PR is merged
+          labels: terraform, automated-pr
