@@ -73,7 +73,11 @@ for the new organization such as:
 <TabItem value="2" label="Terraform example usage">
 
 <!-- START_ORGANIZATION_EXAMPLE_USAGE -->
-
+```hcl
+resource "aiven_organization" "main" {
+  name = "Example organization"
+}
+```
 <!-- END_ORGANIZATION_EXAMPLE_USAGE -->
 
 Further details are available in the
