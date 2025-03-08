@@ -11,19 +11,28 @@ import CreateService from "@site/static/includes/create-service-console.md"
 import PlanApplyTF from "@site/static/includes/terraform-plan-and-apply.md"
 import RelatedPages from "@site/src/components/non-swizzled/RelatedPages";
 
-
 Start using Aiven for PostgreSQL® by creating a service, connecting to it, and loading sample data.
 
 ## Prerequisites
 
+<Tabs groupId="group1">
+<TabItem value="1" label="Console" default>
+
 - Access to the [Aiven Console](https://console.aiven.io)
 - [psql](https://www.postgresql.org/download/) command line tool installed
-- [Terraform installed](https://developer.hashicorp.com/terraform/install) if you prefer
-  to get started using code
+
+</TabItem>
+<TabItem value="2" label="Terraform">
+- [Terraform installed](https://developer.hashicorp.com/terraform/install)
+- Aiven Terraform Provider installed
+- Create a token
+
+</TabItem>
+</Tabs>
 
 ## Create a service
 
-<Tabs groupId="group1">
+<Tabs groupId="group2">
 <TabItem value="1" label="Console" default>
 
 <CreateService serviceType="PostgreSQL®"/>
@@ -31,63 +40,31 @@ Start using Aiven for PostgreSQL® by creating a service, connecting to it, and 
 </TabItem>
 <TabItem value="2" label="Terraform">
 
-1. [Create a token](/docs/platform/howto/create_authentication_token).
 1. To define the Terraform version and configure the Aiven Terraform Provider,
    create a file named ``provider.tf`` with the following:
 
-   <!-- START_POSTGRES_EXAMPLE_PROVIDER -->
-   ```hcl
-   terraform {
-     required_version = ">=0.13"
-     required_providers {
-       aiven = {
-         source  = "aiven/aiven"
-         version = ">=4.0.0, <5.0.0"
-       }
-     }
-   }
-   
-   provider "aiven" {
-     api_token = var.aiven_token
-   }
-   ```
-   <!-- END_POSTGRES_EXAMPLE_PROVIDER -->
+   <!-- START_POSTGRES_PROVIDER_FILE -->
+
+   <!-- END_POSTGRES_PROVIDER_FILE -->
 
 1. To configure the PostgreSQL service, create a file named ``service.tf``
    with the following:
 
-   <!-- START_POSTGRES_EXAMPLE_SERVICE -->
-   ```hcl
-   # European Postgres Service
-   resource "aiven_pg" "example_postgres" {
-     project      = var.project_name
-     service_name = "example-postgres-service"
-     cloud_name   = "aws-eu-west-2" 
-     plan         = "startup-4"
-   }
-   ```
-   <!-- END_POSTGRES_EXAMPLE_SERVICE -->
+   <!-- START_POSTGRES_SERVICE_FILE -->
 
+   <!-- END_POSTGRES_SERVICE_FILE -->
 
 1. Declare your variables in a file named ``variables.tf`` with the following:
 
-   <!-- START_POSTGRES_EXAMPLE_VARIABLES -->
-```hcl
-   variable "aiven_token" {
-     description = "Aiven token"
-     type        = string
-   }
-   
-   variable "project_name" {
-     description = "Aiven project name"
-     type        = string
-   }
-```
-   <!-- END_POSTGRES_EXAMPLE_VARIABLES -->
+   <!-- START_POSTGRES_VARIABLES_FILE -->
+
+   <!-- END_POSTGRES_VARIABLES_FILE -->
 
 1. Create a file named ``terraform.tfvars`` with your token and Aiven project name:
 
-   <!-- INSERT_POSTGRES_EXAMPLE_TFVARS -->
+<!-- START_POSTGRES_TFVARS_FILE -->
+
+<!-- END_POSTGRES_TFVARS_FILE -->
 
 <PlanApplyTF/>
 
