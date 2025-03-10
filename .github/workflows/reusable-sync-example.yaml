@@ -1,0 +1,57 @@
+name: Reusable Sync Example Workflow
+
+on:
+  workflow_call:
+    inputs:
+      example_name:
+        required: true
+        type: string
+      example_file:
+        required: true
+        type: string
+      placeholder:
+        required: true
+        type: string
+      doc_file:
+        required: true
+        type: string
+    secrets:
+      GITHUB_TOKEN:
+        required: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  sync-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Clone Terraform Provider repository
+        run: git clone --branch main --depth 1 --recurse-submodules https://github.com/staceysalamon-aiven/test-terraform-provider-aiven.git temp-terraform-repo
+
+      - name: Extract examples and update docs
+        run: |
+          EXAMPLE_USAGE=$(cat temp-terraform-repo/examples/resources/${{ inputs.example_file }})
+          awk -v code="$EXAMPLE_USAGE" '/<!-- START_${{ inputs.placeholder }} -->/ {print $0; in_block=1; next} /<!-- END_${{ inputs.placeholder }} -->/ {if (in_block) {print "```hcl"; print code; print "```"; in_block=0} print $0; next} in_block {next} {print $0}' ${{ inputs.doc_file }} > ${{ inputs.doc_file }}.tmp
+          mv ${{ inputs.doc_file }}.tmp ${{ inputs.doc_file }}
+
+      - name: Check modified files
+        run: git status && git diff --name-only
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'Sync Terraform example usage in docs'
+          committer: GitHub <noreply@github.com>
+          author: GitHub <noreply@github.com>
+          title: 'Sync Terraform code samples'
+          body: 'Automatically syncs the latest examples from the Terraform example usage.'
+          base: main
+          branch: sync-tf-code-samples-${{ inputs.example_name }}
+          delete-branch: true
+          labels: terraform, automated-pr, review/TW

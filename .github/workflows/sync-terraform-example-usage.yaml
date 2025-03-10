@@ -6,62 +6,29 @@ on:
   workflow_dispatch:
 
 jobs:
-  sync-standard-examples:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        example:
-          - {
-              name: 'aiven_organization',
-              file: 'aiven_organization/resource.tf',
-              placeholder: 'ORGANIZATION_EXAMPLE_USAGE',
-              doc: 'docs/tools/aiven-console/howto/create-orgs-and-units.md',
-            }
-          - {
-              name: 'aiven_organizational_unit',
-              file: 'aiven_organizational_unit/resource.tf',
-              placeholder: 'ORGANIZATIONAL_UNIT_EXAMPLE_USAGE',
-              doc: 'docs/tools/aiven-console/howto/create-orgs-and-units.md',
-            }
-          - {
-              name: 'aiven_organization_project',
-              file: 'aiven_organization_project/resource.tf',
-              placeholder: 'ORGANIZATION_PROJECT_EXAMPLE_USAGE',
-              doc: 'docs/platform/howto/manage-project.md',
-            }
+  sync-example:
+    uses: ./.github/workflows/reusable-sync-example.yml
+    with:
+      example_name: 'aiven_organization'
+      example_file: 'aiven_organization/resource.tf'
+      placeholder: 'ORGANIZATION_EXAMPLE_USAGE'
+      doc_file: 'docs/tools/aiven-console/howto/create-orgs-and-units.md'
+    secrets: inherit
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  sync-example-2:
+    uses: ./.github/workflows/reusable-sync-example.yml
+    with:
+      example_name: 'aiven_organizational_unit'
+      example_file: 'aiven_organizational_unit/resource.tf'
+      placeholder: 'ORGANIZATIONAL_UNIT_EXAMPLE_USAGE'
+      doc_file: 'docs/tools/aiven-console/howto/create-orgs-and-units.md'
+    secrets: inherit
 
-      - name: Clone Terraform Provider repository
-        run: git clone --branch main --depth 1 --recurse-submodules https://github.com/staceysalamon-aiven/test-terraform-provider-aiven.git temp-terraform-repo
-
-      - name: Debug extracted example
-        run: echo "$EXAMPLE_USAGE"
-
-      - name: Extract examples and update docs
-        run: |
-          EXAMPLE_USAGE=$(cat temp-terraform-repo/examples/resources/${{ matrix.example.file }})
-
-          awk -v code="$EXAMPLE_USAGE" '/<!-- START_${{ matrix.example.placeholder }} -->/ {print $0; in_block=1; next} /<!-- END_${{ matrix.example.placeholder }} -->/ {if (in_block) {print "```hcl"; print code; print "```"; in_block=0} print $0; next} in_block {next} {print $0}' ${{ matrix.example.doc }} > ${{ matrix.example.doc }}.tmp
-          mv ${{ matrix.example.doc }}.tmp ${{ matrix.example.doc }}
-
-      - name: Debug extracted example
-        run: echo "$EXAMPLE_USAGE"
-
-      - name: Check modified files
-        run: git status && git diff --name-only
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          commit-message: 'Sync Terraform example usage in docs'
-          committer: GitHub <noreply@github.com>
-          author: GitHub <noreply@github.com>
-          title: 'Sync Terraform code samples'
-          body: 'Automatically syncs the latest examples from the Terraform example usage.'
-          base: main
-          branch: sync-tf-code-samples
-          delete-branch: true
-          labels: terraform, automated-pr, review/TW
+  sync-example-3:
+    uses: ./.github/workflows/reusable-sync-example.yml
+    with:
+      example_name: 'aiven_organization_project'
+      example_file: 'aiven_organization_project/resource.tf'
+      placeholder: 'ORGANIZATION_PROJECT_EXAMPLE_USAGE'
+      doc_file: 'docs/platform/howto/manage-project.md'
+    secrets: inherit
