@@ -79,8 +79,8 @@ for the new organization such as:
 
 <!-- START_ORGANIZATION_EXAMPLE_USAGE -->
 ```hcl
-resource "aiven_organization" "main" {
-  name = "Example organization"
+resource "aiven_organization" "org" {
+  name = "Example organization at 0944"
 }
 ```
 <!-- END_ORGANIZATION_EXAMPLE_USAGE -->
