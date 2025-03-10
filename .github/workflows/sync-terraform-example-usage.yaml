@@ -16,7 +16,7 @@ jobs:
     secrets: inherit
 
   sync-example-2:
-    uses: ./.github/workflows/reusable-sync-example.yml
+    uses: ./.github/workflows/reusable-sync-example.yaml
     with:
       example_name: 'aiven_organizational_unit'
       example_file: 'aiven_organizational_unit/resource.tf'
@@ -25,7 +25,7 @@ jobs:
     secrets: inherit
 
   sync-example-3:
-    uses: ./.github/workflows/reusable-sync-example.yml
+    uses: ./.github/workflows/reusable-sync-example.yaml
     with:
       example_name: 'aiven_organization_project'
       example_file: 'aiven_organization_project/resource.tf'
