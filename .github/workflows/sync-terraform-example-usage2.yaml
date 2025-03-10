@@ -11,4 +11,5 @@ jobs:
     with:
       examples: |
         - { name: 'aiven_organization', file: 'aiven_organization/resource.tf', placeholder: 'ORGANIZATION_EXAMPLE_USAGE', doc: 'docs/tools/aiven-console/howto/create-orgs-and-units.md' }
+        - { name: 'aiven_organizational_unit', file: 'aiven_organizational_unit/resource.tf', placeholder: 'ORGANIZATIONAL_UNIT_EXAMPLE_USAGE', doc: 'docs/tools/aiven-console/howto/create-orgs-and-units.md' }
         - { name: 'aiven_organization_project', file: 'aiven_organization_project/resource.tf', placeholder: 'ORGANIZATION_PROJECT_EXAMPLE_USAGE', doc: 'docs/platform/howto/manage-project.md' }
