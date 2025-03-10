@@ -7,7 +7,7 @@ on:
 
 jobs:
   sync-example:
-    uses: ./.github/workflows/reusable-sync-example.yml
+    uses: ./.github/workflows/reusable-sync-example.yaml
     with:
       example_name: 'aiven_organization'
       example_file: 'aiven_organization/resource.tf'
