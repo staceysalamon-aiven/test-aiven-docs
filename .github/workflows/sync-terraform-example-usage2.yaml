@@ -7,7 +7,7 @@ on:
 
 jobs:
   sync-all-examples:
-    uses: ./.github/workflows/reusable-sync-example.yml
+    uses: ./.github/workflows/reusable-sync-example.yaml
     with:
       examples: |
         - { name: 'aiven_organization', file: 'aiven_organization/resource.tf', placeholder: 'ORGANIZATION_EXAMPLE_USAGE', doc: 'docs/tools/aiven-console/howto/create-orgs-and-units.md' }
