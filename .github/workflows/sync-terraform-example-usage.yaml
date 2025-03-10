@@ -37,12 +37,21 @@ jobs:
       - name: Clone Terraform Provider repository
         run: git clone --branch main --depth 1 --recurse-submodules https://github.com/staceysalamon-aiven/test-terraform-provider-aiven.git temp-terraform-repo
 
+      - name: Debug extracted example
+        run: echo "$EXAMPLE_USAGE"
+
       - name: Extract examples and update docs
         run: |
           EXAMPLE_USAGE=$(cat temp-terraform-repo/examples/resources/${{ matrix.example.file }})
 
           awk -v code="$EXAMPLE_USAGE" '/<!-- START_${{ matrix.example.placeholder }} -->/ {print $0; in_block=1; next} /<!-- END_${{ matrix.example.placeholder }} -->/ {if (in_block) {print "```hcl"; print code; print "```"; in_block=0} print $0; next} in_block {next} {print $0}' ${{ matrix.example.doc }} > ${{ matrix.example.doc }}.tmp
           mv ${{ matrix.example.doc }}.tmp ${{ matrix.example.doc }}
+
+      - name: Debug extracted example
+        run: echo "$EXAMPLE_USAGE"
+
+      - name: Check modified files
+        run: git status && git diff --name-only
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
