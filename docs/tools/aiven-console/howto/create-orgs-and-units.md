@@ -35,7 +35,7 @@ within other units.
 <TerraformSample filename="resources/aiven_organizational_unit/resource.tf" />
 
 More information on the organizational unit resource and its configuration options
-are avaialble in the
+are available in the
 [Terraform documentation](https://registry.terraform.io/providers/aiven/aiven/latest/docs/resources/organizational_unit).
 
 </TabItem>
@@ -68,14 +68,13 @@ for the new organization such as:
     organization. You can search for projects by name.
 1.  Click **Create organization**.
 
-
 </TabItem>
 <TabItem value="terraform" label="Terraform example usage">
 
 <TerraformSample filename="resources/aiven_organization/resource.tf" />
 
-More information on the organizational unit resource and its configuration options
-are avaialble in the
+More information on the organization resource and its configuration options
+are available in the
 [Terraform documentation](https://registry.terraform.io/providers/aiven/aiven/latest/docs/resources/organizational_unit).
 
 </TabItem>
