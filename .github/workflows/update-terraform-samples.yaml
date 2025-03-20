@@ -12,6 +12,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: true
+          fetch-depth: 0
 
       - name: Configure Git
         run: |
@@ -20,15 +21,7 @@ jobs:
 
       - name: Update submodule
         run: |
-          # Clean up any submodule issues
-          git submodule deinit -f external/terraform-provider
-          rm -rf external/terraform-provider
-          git submodule update --init --recursive
-
-          # Update the submodule with the latest changes
           git submodule update --remote --merge
-
-          # Add and commit the changes if any
           git add external/terraform-provider
           git commit -m "Sync Terraform samples" || echo "No changes to commit"
 
