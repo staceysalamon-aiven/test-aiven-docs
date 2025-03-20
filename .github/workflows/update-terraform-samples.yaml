@@ -24,7 +24,6 @@ jobs:
           git submodule update --remote --merge
           git add external/terraform-provider
           git commit -m "Automatic sync of Terraform samples" || echo "No changes to commit"
-          git push
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6
