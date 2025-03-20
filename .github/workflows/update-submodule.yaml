@@ -1,21 +1,27 @@
-name: Update Terraform Provider Submodule
+name: Update Aiven Terraform Provider submodule to sync samples
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 2 * * 1,2,3,4' # Runs at 02:00 every week Mon-Thurs
   workflow_dispatch:
 
 jobs:
   update-submodule:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Docs Repo
+      - name: Checkout docs repo
         uses: actions/checkout@v4
         with:
           submodules: true
+          fetch-depth: 0
 
-      - name: Update Submodule
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "noreply@github.com"
+
+      - name: Update submodule
         run: |
           git submodule update --remote --merge
           git add external/terraform-provider
-          git commit -m "Auto-update Terraform Provider submodule" || echo "No changes to commit"
+          git commit -m "Sync Terraform samples" || echo "No changes to commit"
           git push
