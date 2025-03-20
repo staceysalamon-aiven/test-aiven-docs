@@ -16,6 +16,7 @@ jobs:
       - name: Update submodule
         run: |
           git submodule update --remote --merge
+          git add external/terraform-provider
           git commit -m "Sync Terraform samples" || echo "No changes to commit"
 
       - name: Create pull request
