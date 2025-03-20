@@ -183,5 +183,14 @@
       "<ButtonSecondary to=\"$1\">$2</Button>",
       ""
     ]
+  },
+  "Insert Terraform sample": {
+    "prefix": ["terraform"],
+    "body": [
+      "import TerraformSample from '@site/src/components/TerraformSample';",
+      "",
+      "<TerraformSample filename=\"${1:EXAMPLE_PATH/FILENAME}.tf\" />",
+      ""
+    ]
   }
 }
