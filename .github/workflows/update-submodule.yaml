@@ -25,3 +25,18 @@ jobs:
           git add external/terraform-provider
           git commit -m "Sync Terraform samples" || echo "No changes to commit"
           git push
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          committer: GitHub <noreply@github.com>
+          author: GitHub <noreply@github.com>
+          title: Update Terraform samples
+          body: |
+            > [!NOTE]
+            > Auto-generated PR. Updates the Aiven Provider for Terraform submodule to
+            > sync the code samples in the docs.
+          base: main
+          labels: automated-pr
+          branch: terraform-samples-update
+          delete-branch: true
