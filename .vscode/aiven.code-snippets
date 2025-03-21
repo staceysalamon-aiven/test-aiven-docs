@@ -187,9 +187,9 @@
   "Insert Terraform sample": {
     "prefix": ["terraform"],
     "body": [
-      "import TerraformSample from '@site/src/components/TerraformSample';",
+      "import TerraformSample from '@site/src/components/CodeSamples/TerraformSample';",
       "",
-      "<TerraformSample filename=\"${1:EXAMPLE_PATH/FILENAME}.tf\" />",
+      "<TerraformSample filename='${1:EXAMPLE_PATH/FILENAME}.tf' />",
       ""
     ]
   }

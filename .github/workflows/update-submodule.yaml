@@ -33,9 +33,10 @@ jobs:
           title: Update Terraform samples
           body: |
             > [!NOTE]
-            > Auto-generated PR. Updates the Aiven Provider for Terraform submodule to
-            > sync the code samples in the docs.
+            > Auto-generated PR.
+
+            Updates the Aiven Provider for Terraform submodule to sync the code samples in the docs.
           base: main
-          labels: automated-pr
+          labels: automated-pr, review/TW
           branch: terraform-samples-update
           delete-branch: true

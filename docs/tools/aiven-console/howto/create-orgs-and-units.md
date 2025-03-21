@@ -5,7 +5,8 @@ sidebar_label: Create organizations and units
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import TerraformSample from '@site/src/components/TerraformSample';
+import TerraformSample from '@site/src/components/CodeSamples/TerraformSample';
+
 
 Organizations and organizational units help you group projects and apply common settings like authentication and access.
 
